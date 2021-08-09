@@ -14,7 +14,6 @@ const modules = [
     'card',
     'hangman',
     'standard',
-    // 'store',
     'rules/cr',
     'rules/ipg',
     'rules/mtr',

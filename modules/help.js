@@ -4,16 +4,17 @@ const Discord = require('discord.js');
 class Help {
     constructor(modules) {
         this.commands = {
-            help: {
-                aliases: [],
-                inline: false,
-                description: "Show this help text",
-                help: 'This command allows you to explore the different functions and ' +
-                    'features of your beloved judgebot. You can look up detailed descriptions ' +
-                    'for a command by using `!help <command>`, like `!help card`.',
-                examples: ["!help", "!help card"]
-            }
-        };
+					help: {
+						aliases: [],
+						inline: false,
+						description: "Show this help message",
+						help:
+							"Explore the different functions of TBD (TopDecked Bot for Discord)." +
+							"Look up detailed descriptions for a command by using" +
+							"`!help <command>`, like `!help card`.",
+						examples: ["!help", "!help card"],
+					},
+				};
         this.location = 'https://topdecked.com';
         this.modules = modules;
     }
