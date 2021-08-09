@@ -3,9 +3,11 @@ const Discord = require("discord.js");
 const _ = require("lodash");
 const utils = require("./utils");
 const cron = require("cron");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const log = utils.getLogger('bot');
-log.info(`booting up...`);
+log.info(`gearing up...`);
 
 // basic server stuff, modules to load
 const commandChar = process.env.COMMAND_CHAR || "!";
@@ -128,14 +130,14 @@ bot.on("message", msg => {
                     bot
                 );
             // if ret is undefined or not a thenable this just returns a resolved promise and the callback won't be called
-            Promise.resolve(ret).catch(e => log.error('An error occured while handling', msg.content, ":", e.message));
+            Promise.resolve(ret).catch(e => log.error('An error occurred while handling', msg.content, ":", e.message));
         });
     }
 });
 
 /* Bot event listeners */
 bot.on('ready', () => {
-    log.info('Bot is ready! Username:', bot.user.username, '/ Servers:', bot.guilds.cache.size );
+    log.info(bot.user.username, ' is ready! ', '/ Servers:', bot.guilds.cache.size );
     utils.updatePresence(bot);
 });
 
@@ -169,7 +171,7 @@ try {
 
 // start the engines!
 try {
-    bot.login("ODcyNTgxMjcwNDQ4NzkxNTkz.YQr8og.JNzkxWnLEWEWVB08EX-DPoy6G38"); //process.env.DISCORD_TOKEN);
+    bot.login(process.env.DISCORD_TOKEN);
 } catch(err) {
     log.error(err);
 }
