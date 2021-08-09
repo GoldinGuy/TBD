@@ -16,6 +16,7 @@ const modules = [
     'card',
     'hangman',
     'standard',
+    'topdeck',
     'rules/cr',
     'rules/ipg',
     'rules/mtr',
