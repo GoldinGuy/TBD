@@ -5,7 +5,7 @@ const utils = require("../../utils");
 const log = utils.getLogger('mtr');
 const Discord = require('discord.js');
 
-const MTR_ADDRESS = process.env.MTR_ADDRESS || 'https://raw.githubusercontent.com/AEFeinstein/GathererScraper/master/rules/MagicTournamentRules-light.html';
+const MTR_ADDRESS = 'https://raw.githubusercontent.com/AEFeinstein/GathererScraper/master/rules/MagicTournamentRules-light.html'; // process.env.MTR_ADDRESS || 
 
 class MTR {
     constructor(initialize = true) {

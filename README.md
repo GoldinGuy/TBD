@@ -31,11 +31,11 @@ For example: `I'm looking for !card tarmogoyf! and !card noble hierarch` would s
 Clone the Git repository and run the following commands:
 ```sh
 npm install
-export DISCORD_TOKEN="<your Discord bot token>"
-export GOOGLE_TOKEN="<your Google (Maps) API key>"
-export CR_ADDRESS="https://media.wizards.com/2020/downloads/MagicCompRules%2020200417.txt"
-export IPG_ADDRESS="https://raw.githubusercontent.com/hgarus/mtgdocs/master/docs/ipg.json"
-export MTR_ADDRESS="https://sites.google.com/site/mtgfamiliar/rules/MagicTournamentRules-light.html"
+set DISCORD_TOKEN="ODcyNTgxMjcwNDQ4NzkxNTkz.YQr8og.JNzkxWnLEWEWVB08EX-DPoy6G38"
+set GOOGLE_TOKEN="AIzaSyBJsvc-LGd7lTTq5p6czPgAx4HYu9U7zTg"
+set CR_ADDRESS="https://media.wizards.com/2020/downloads/MagicCompRules%2020200417.txt"
+set IPG_ADDRESS="https://raw.githubusercontent.com/hgarus/mtgdocs/master/docs/ipg.json"
+set MTR_ADDRESS="https://sites.google.com/site/mtgfamiliar/rules/MagicTournamentRules-light.html"
 node server.js
 ```
 

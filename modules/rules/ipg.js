@@ -5,7 +5,7 @@ const utils = require("../../utils");
 const log = utils.getLogger('ipg');
 const Discord = require("discord.js");
 
-const IPG_ADDRESS = process.env.IPG_ADDRESS || "https://raw.githubusercontent.com/hgarus/mtgdocs/master/docs/ipg.json";
+const IPG_ADDRESS = "https://raw.githubusercontent.com/hgarus/mtgdocs/master/docs/ipg.json"; //process.env.IPG_ADDRESS || 
 
 class IPG {
     constructor(initialize = true) {

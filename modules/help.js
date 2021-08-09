@@ -14,7 +14,7 @@ class Help {
                 examples: ["!help", "!help card"]
             }
         };
-        this.location = 'https://github.com/bra1n/judgebot';
+        this.location = 'https://topdecked.com';
         this.modules = modules;
     }
 
@@ -26,7 +26,7 @@ class Help {
         let param = parameter.trim().toLowerCase().split(" ")[0];
 
         const embed = new Discord.MessageEmbed({
-            title: 'List of available commands',
+            title: 'List of TopDecked commands',
             // thumbnail: {url: this.thumbnail},
             url: this.location
         });
@@ -56,8 +56,6 @@ class Help {
                 description += ':small_blue_diamond: **!'+command+'**  '+commandObj.description+'\n';
             });
             embed.setDescription(description+'\n To learn more about a command, use `!help <command>`');
-            embed.addField('Add judgebot to your Discord', 'This bot is provided free of charge and can be added to your server, too!\n :link: https://bots.discord.pw/bots/240537940378386442');
-            embed.addField('Judgebot Source Code', ':link: https://github.com/bra1n/judgebot');
         }
 
         return msg.author.send('', {embed});

@@ -11,7 +11,7 @@ class MtgCardLoader {
             card: {
                 aliases: [],
                 inline: true,
-                description: "Search for an English Magic card by (partial) name, supports full Scryfall syntax",
+                description: "Search for an English Magic card by (partial) name, supports full TopDecked syntax",
                 help: '',
                 examples: ["!card iona", "!card t:creature o:flying", "!card goyf e:fut"]
             },
@@ -46,70 +46,70 @@ class MtgCardLoader {
         };
         this.cardApi = "https://api.scryfall.com/cards/search?q=";
         this.cardApiFuzzy = "https://api.scryfall.com/cards/named?fuzzy=";
-        // Discord bots can use custom emojis globally, so we just reference these Manamoji through their code / ID
-        // (currently hosted on the Judgebot testing discord)
-        // @see https://github.com/scryfall/thopter/tree/master/manamoji
-        this.manamojis = {
-            "0":"0_:344491158384410625",
-            "1":"1_:344491158723887107",
-            "10":"10:344491160280104984",
-            "11":"11:344491159965401088",
-            "12":"12:344491160435163137",
-            "13":"13:344491160674238464",
-            "14":"14:344491160619712513",
-            "15":"15:344491160586289154",
-            "16":"16:344491160808587264",
-            "17":"17:344491160468979714",
-            "18":"18:344491160720506880",
-            "19":"19:344491160498208771",
-            "2":"2_:344491158371696641",
-            "20":"20:344491161257246720",
-            "2b":"2b:344491158665429012",
-            "2g":"2g:344491159189585921",
-            "2r":"2r:344491159265083392",
-            "2u":"2u:344491159160225792",
-            "2w":"2w:344491159692771328",
-            "3":"3_:344491159210688522",
-            "4":"4_:344491159172677632",
-            "5":"5_:344491158883532801",
-            "6":"6_:344491159185260554",
-            "7":"7_:344491159021813761",
-            "8":"8_:344491159424466945",
-            "9":"9_:344491159273472020",
-            "b":"b_:608749298682822692",
-            "bg":"bg:344491161286737921",
-            "bp":"bp:608749299135807508",
-            "br":"br:344491161362366465",
-            "c":"c_:344491160636489739",
-            "chaos":"chaos:344491160267653130",
-            "e":"e_:344491160829558794",
-            "g":"g_:344491161169428481",
-            "gp":"gp:344491161102319616",
-            "gu":"gu:344491161223692300",
-            "gw":"gw:344491161139937282",
-            "half":"half:344491161164972032",
-            "hr":"hr:344491160787615748",
-            "hw":"hw:344491161181749268",
-            "infinity":"infinity:344491160619843593",
-            "q":"q_:344491161060245504",
-            "r":"r_:344491161274023938",
-            "rg":"rg:344491161295257600",
-            "rp":"rp:344491161076891648",
-            "rw":"rw:344491161316098049",
-            "s":"s_:343519207608025090",
-            "t":"t_:344491161089736704",
-            "u":"u_:344491161362235394",
-            "ub":"ub:344491161248858113",
-            "up":"up:344491161395789824",
-            "ur":"ur:608749298896863297",
-            "w":"w_:608749298896863266",
-            "wb":"wb:344491161374818304",
-            "wp":"wp:608749298544410641",
-            "wu":"wu:608749299135807512",
-            "x":"x_:344491161345327126",
-            "y":"y_:344491161374818305",
-            "z":"z_:344491161035210755"
-        };
+        // https://github.com/scryfall/thopter/tree/master/manamoji
+        this.mana_symbols = {
+					0: "<:0_:872667411025903647>",
+					1: "<:1_:872667410816180256>",
+					2: "<:2_:872667411093024798>",
+					3: "<:3_:872667447499563008>",
+					4: "<:4_:872667447570857994>",
+					5: "<:5_:872667447537328138>",
+					6: "<:6_:872667447570882580>",
+					7: "<:7_:872667447600238592>",
+					8: "<:8_:872667447604424754>",
+					9: "<:9_:872667447575076864>",
+					10: "<:10:872667447575085106>",
+					11: "<:11:872667447562485810>",
+					12: "<:12:872667447235313745>",
+					13: "<:13:872679674088661013>",
+					14: "<:14:872667447793176576>",
+					15: "<:15:872667447616995368>",
+					16: "<:16:872667447768014848>",
+					17: "<:17:872667447621197874>",
+					18: "<:18:872667447608610827>",
+					19: "<:19:872667447642193971>",
+					20: "<:20:872679774043111504>",
+					x: "<:x_:872679893777936384>",
+					y: "<:y_:872679893765337118>",
+					z: "<:z_:872679893899550760>",
+					t: "<:t_:872679914254524457>",
+					q: "<:q_:872679934508826664>",
+					w: "<:w_:793662300564881438>",
+					u: "<:u_:793662251315626025>",
+					b: "<:b_:793662284713951233>",
+					r: "<:r_:793662237466034189>",
+					g: "<:g_:793662266716585994>",
+					c: "<:c_:793662330557693963>",
+					p: "<:p_:793662449105764364>",
+					s: "<:s_:793662411894554624>",
+					// TODO: get emoji id for each of these
+					br: "br:872669140358410270",
+					bg: "bg:872669283539370045",
+					gu: "gu:793677318790053909",
+					rg: "rg:872669130833150043",
+					ur: "ur:872669189112987688",
+					gw: "gw:872669161883570176",
+					rw: "rw:872669200655745084",
+					wu: "wu:608749299135807512",
+					wb: "wb:872669233895575643",
+					ub: "ub:872669660028493824",
+					bp: "bp:872681620006662174",
+					rp: "rp:872681594161336321",
+					gp: "gp:872681646145552454",
+					up: "up:872681604085071942",
+					wp: "wp:872681633906561065",
+					chaos: "chaos:872682127865557043",
+					e: "e_:872682113286172703",
+					half: "half:872682147054493717",
+					hr: "hr:872682069610877000",
+					hw: "hw:872682085796708392",
+					"2b": "2b:872681366918144092",
+					"2g": "2g:872681381422063686",
+					"2r": "2r:872681375319347230",
+					"2u": "2u:872681387893882940",
+					"2w": "2w:872681405522518067",
+					infinity: "infinity:872668964826800138",
+				};
         // embed border colors depending on card color(s)
         this.colors = {
             "W": 0xF8F6D8,
@@ -132,10 +132,10 @@ class MtgCardLoader {
 
     // replace mana and other symbols with actual emojis
     renderEmojis(text) {
-        return text.replace(/{[^}]+?}/ig, match => {
-            const code = match.replace(/[^a-z0-9]/ig,'').toLowerCase();
-            return this.manamojis[code] ? '<:'+this.manamojis[code]+'>':'';
-        });
+        return text.replace(/{[^}]+?}/gi, (match) => {
+					const code = match.replace(/[^a-z0-9]/gi, "").toLowerCase();
+					return this.mana_symbols[code] ? this.mana_symbols[code] : "";
+				});
     }
 
     // determine embed border color
@@ -236,8 +236,12 @@ class MtgCardLoader {
             let description = this.generateDescriptionText(card);
 
             // are we allowed to use custom emojis? cool, then do so, but make sure the title still fits
-            if(hasEmojiPermission) {
-                title = _.truncate(this.renderEmojis(title), {length: 256, separator: '<'});
+            if (hasEmojiPermission) {
+                title = this.renderEmojis(title)
+                title = _.truncate(title, {
+									length: 256,
+									separator: "<",
+								});
                 description = this.renderEmojis(description);
             }
 
@@ -251,14 +255,23 @@ class MtgCardLoader {
 
             // instantiate embed object
             const embed = new Discord.MessageEmbed({
-                title,
-                description,
-                footer: {text: footer},
-                url: card.scryfall_uri,
-                color: this.getBorderColor(card.layout === 'transform' || card.layout === 'modal_dfc' ? card.card_faces[0]:card),
-                thumbnail: card.image_uris ? {url: card.image_uris.small} : null,
-                image: card.zoom && card.image_uris ? {url: card.image_uris.normal} : null
-            });
+							title,
+							description,
+							footer: { text: footer },
+							url: utils.getTopDeckedCardUrl(card.scryfall_uri), //,
+							color: this.getBorderColor(
+								card.layout === "transform" || card.layout === "modal_dfc"
+									? card.card_faces[0]
+									: card
+							),
+							thumbnail: card.image_uris
+								? { url: card.image_uris.small }
+								: null,
+							image:
+								card.zoom && card.image_uris
+									? { url: card.image_uris.normal }
+									: null,
+						});
 
             // show crop art only
             if (command.match(/^art/) && card.image_uris) {
@@ -394,7 +407,7 @@ class MtgCardLoader {
         }).catch(err => {
             let description = 'No cards matched `'+cardName+'`.';
             if (err.statusCode === 503) {
-                description = 'Scryfall is currently offline, please try again later.'
+                description = 'TopDecked is currently offline, please try again later.'
             }
             return msg.channel.send('', {embed: new Discord.MessageEmbed({
                 title: 'Error',

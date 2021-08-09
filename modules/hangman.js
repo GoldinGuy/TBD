@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const rp = require('request-promise-native');
 const _ = require('lodash');
 const Discord = require('discord.js');
@@ -10,12 +11,12 @@ const GAME_TIME = 3 * 60 * 1000; // minutes
 
 class HangmanGame {
     constructor({
-                    id,
-                    gameList,
-                    message = null,
-                    collector = null,
-                    card = null,
-                    difficulty = 'medium',
+            id,
+            gameList,
+            message = null,
+            collector = null,
+            card = null,
+            difficulty = 'medium'
                 } = {}) {
         this.id = id;
         this.gameList = gameList;
@@ -161,7 +162,7 @@ class HangmanGame {
         if (this.done) {
             embed.setTitle(this.card.name);
             embed.setFooter(this.gameSuccess ? 'You guessed the card!' :'You failed to guess the card!');
-            embed.setURL(this.card.scryfall_uri);
+            embed.setURL(utils.getTopDeckedCardUrl(this.card.scryfall_uri));
             if ((this.card.layout === 'transform' || this.card.layout === 'modal_dfc') && this.card.card_faces && this.card.card_faces[0].image_uris) {
                 embed.setImage(this.card.card_faces[0].image_uris.normal);
             }
@@ -181,7 +182,7 @@ class MtgHangman {
             hangman: {
                 aliases: [],
                 inline: false,
-                description: 'Start a game of hangman, where you have to guess the card name with reaction letters',
+                description: 'Begin a game of hangman where you have to guess the card name with reaction letters',
                 help: 'Selects a random Magic card, token or plane and shows you the ' +
                     'placeholders for each letter in its name. To guess a letter, add a reaction to the ' +
                     'Hangman-message of the bot. Reactions have to be selected among the regional indicators ' +
@@ -222,7 +223,7 @@ class MtgHangman {
                 msg.channel.send('', {
                     embed: new Discord.MessageEmbed({
                         title: 'Error',
-                        description: 'You can only start one hangman game every ' + GAME_TIME / 60000 + ' minutes.',
+                        description: 'You can only begin one hangman game every ' + GAME_TIME / 60000 + ' minutes.',
                         color: 0xff0000
                     })
                 });
@@ -235,7 +236,7 @@ class MtgHangman {
                 msg.channel.send('', {
                     embed: new Discord.MessageEmbed({
                         title: 'Error',
-                        description: 'No hangman game is currently running in this server. Guess ignored.',
+                        description: 'No hangman game is currently running. Guess ignored.',
                         color: 0xff0000
                     })
                 });
@@ -282,7 +283,7 @@ class MtgHangman {
             msg.channel.send('', {
                 embed: new Discord.MessageEmbed({
                     title: 'Error',
-                    description: 'Scryfall is currently offline and can\'t generate us a random card, please try again later.',
+                    description: 'Our API is currently offline and can\'t generate us a random card, please try again later.',
                     color: 0xff0000
                 })
             });

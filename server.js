@@ -1,6 +1,8 @@
+/* eslint-disable global-require */
 const Discord = require("discord.js");
 const _ = require("lodash");
 const utils = require("./utils");
+const cron = require("cron");
 
 const log = utils.getLogger('bot');
 log.info(`booting up...`);
@@ -17,13 +19,12 @@ const modules = [
     'rules/ipg',
     'rules/mtr',
     'rules/jar',
+    'presence',
     'help'
 ];
 
 // initialize the bot and all modules
 const bot = new Discord.Client({
-    shardList: 'auto' ,
-    shards: 'auto' ,
     messageCacheMaxSize: 100,
     messageCacheLifetime: 60 * 10,
     messageSweepInterval: 90,
@@ -51,7 +52,7 @@ const bot = new Discord.Client({
         'TYPING_START',
         'VOICE_STATE_UPDATE',
         'VOICE_SERVER_UPDATE',
-        'WEBHOOKS_UPDATE',
+        'WEBHOOKS_UPDATE'
     ]
 });
 const handlers = {};
@@ -120,8 +121,13 @@ bot.on("message", msg => {
             const command = query.trim().split(" ")[0].substr(commandChar.length).toLowerCase();
             const parameter = query.trim().split(" ").slice(1).join(" ").replace(new RegExp(charPattern + '[^a-z0-9]?$', 'i'), '');
 
-            log.info(utils.prettyLog(msg, 'query', (command+' '+parameter).trim()));
-            const ret = handlers[command].handleMessage(command, parameter, msg);
+            log.info(utils.prettyLog(msg, 'query', (command + ' ' + parameter).trim()));
+             const ret = handlers[command].handleMessage(
+                    command,
+                    parameter,
+                    msg,
+                    bot
+                );
             // if ret is undefined or not a thenable this just returns a resolved promise and the callback won't be called
             Promise.resolve(ret).catch(e => log.error('An error occured while handling', msg.content, ":", e.message));
         });
@@ -131,17 +137,17 @@ bot.on("message", msg => {
 /* Bot event listeners */
 bot.on('ready', () => {
     log.info('Bot is ready! Username:', bot.user.username, '/ Servers:', bot.guilds.cache.size );
-    utils.updateServerCount(bot);
+    utils.updatePresence(bot);
 });
 
 bot.on('guildCreate', (guild) => {
     log.info(utils.prettyLog({guild}, "joined"));
-    utils.updateServerCount(bot);
+    utils.updatePresence(bot);
 });
 
 bot.on('guildDelete', (guild) => {
     log.info(utils.prettyLog({guild}, "left"));
-    utils.updateServerCount(bot);
+    utils.updatePresence(bot);
 });
 
 bot.on('error', (error) => {
@@ -150,11 +156,21 @@ bot.on('error', (error) => {
     console.log(error);
 });
 
+// refresh presence twice a day
+try {
+    const refreshPresence = new cron.CronJob(
+        "01 05 01,13 * * *",
+        utils.updatePresence(bot)
+    );
+    refreshPresence.start();
+} catch(err) {
+    log.error(err);
+}
 // bot.on("debug",console.debug);
 
 // start the engines!
 try {
-    bot.login(process.env.DISCORD_TOKEN);
+    bot.login("ODcyNTgxMjcwNDQ4NzkxNTkz.YQr8og.JNzkxWnLEWEWVB08EX-DPoy6G38"); //process.env.DISCORD_TOKEN);
 } catch(err) {
     log.error(err);
 }

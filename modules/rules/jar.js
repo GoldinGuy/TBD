@@ -5,9 +5,8 @@ class JAR {
             jar: {
                 aliases: [],
                 inline: false,
-                description: "Show the link to the Judging at Regular document (this feature is WIP)",
-                help: 'This command currently only returns the link to the JAR document, but will contain the whole ' +
-                'document in the near future.',
+                description: "Get a link to the \"Judging at Regular\" document",
+                help: 'Returns the link to the JAR document.',
                 examples: ["!jar"]
             }
         };
@@ -18,7 +17,7 @@ class JAR {
     }
 
     handleMessage(command, parameter, msg) {
-        return msg.channel.send('**Judging at Regular**: <' + this.Location + '>');
+        return msg.channel.send('**Judging at Regular Events**: <' + this.Location + '>');
     }
 }
 module.exports = JAR;
