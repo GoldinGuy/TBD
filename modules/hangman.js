@@ -182,7 +182,7 @@ class MtgHangman {
             hangman: {
                 aliases: [],
                 inline: false,
-                description: 'Begin a game of hangman where you have to guess the card name with reaction letters',
+                description: 'Play a game of hangman where you have to guess the card name with reaction letters',
                 help: 'Selects a random Magic card, token or plane and shows you the ' +
                     'placeholders for each letter in its name. To guess a letter, add a reaction to the ' +
                     'Hangman-message of the bot. Reactions have to be selected among the regional indicators ' +

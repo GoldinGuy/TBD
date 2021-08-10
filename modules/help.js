@@ -54,9 +54,12 @@ class Help {
             let description = '';
             _.forEach(commands, (commandObj, command) => {
                 if (command !== commandObj.name) return;
-                description += ':small_blue_diamond: **!'+command+'**  '+commandObj.description+'\n';
+                description += ':purple_circle: **!'+command+'**  '+commandObj.description+'\n';
             });
-            embed.setDescription(description+'\n To learn more about a command, use `!help <command>`');
+            embed.setDescription(
+							description +
+								"\n Based on @bra1n's powerful \"judgebot.\" \n To learn more about a command, use `!help <command>`"
+						);
         }
 
         return msg.author.send('', {embed});

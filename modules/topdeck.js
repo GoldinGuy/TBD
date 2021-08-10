@@ -9,11 +9,11 @@ class Topdeck {
 	constructor(modules) {
 		this.commands = {
 			topdeck: {
-				aliases: [],
+				aliases: ['td'],
 				inline: false,
 				description:
 					"A variant of russian roulette where you need to topdeck the right card. If you hit a land, you get kicked.",
-				help: "This command is a variant of russian roulette where if you hit a land, you get kicked.",
+				help: "This command is a variant of russian roulette where if you hit a land, you get kicked!",
 				examples: ["!topdeck"],
 			},
 		};
