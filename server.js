@@ -152,6 +152,13 @@ bot.on('guildDelete', (guild) => {
     utils.updatePresence(bot);
 });
 
+// TODO: add supporter role to new members
+bot.on("guildMemberAdd", (member, msg) => {
+	member.send(
+		`🎉 Welcome to the **TopDecked Community Discord** ${member.displayName}! \n\nClick the link below to sync your TopDecked and Discord account and unlock perks for both!`
+	);
+});
+
 bot.on('error', (error) => {
     log.error('client error received');
     log.error(error);

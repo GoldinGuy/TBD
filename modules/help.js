@@ -58,7 +58,7 @@ class Help {
             });
             embed.setDescription(
 							description +
-								"\n Based on @bra1n's powerful \"judgebot.\" \n To learn more about a command, use `!help <command>`"
+								"\n Based on @bra1n's powerful \"judgebot\" \n To learn more about a command, use `!help <command>`"
 						);
         }
 
