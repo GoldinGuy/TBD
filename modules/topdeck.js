@@ -1,13 +1,9 @@
 /* eslint-disable complexity */
 const rp = require("request-promise-native");
 const _ = require("lodash");
-const Discord = require("discord.js");
 const utils = require("../utils");
 const log = utils.getLogger("topdeck");
-const Card = require("./card");
-const cardFetcher = new Card();
-
-const randomCardUrl = "https://api.scryfall.com/cards/random";
+const randomCardUrl = "https://api.scryfall.com/cards/random?q=-type%3Abasic";
 
 class Topdeck {
 	constructor(modules) {
@@ -32,14 +28,12 @@ class Topdeck {
 
     handleMessage(command, parameter, msg, bot) {
         const topN = Math.floor(Math.random() * 6) + 1;
-        let card = ""
         // 1/6 chance of getting a land
-        if (topN){ //=== 6) {
+        if (topN === 6) {
             const basics = ['plains', 'island', 'swamp', 'mountain', 'forest']
-            card = basics[Math.floor(Math.random() * 5)];
+            let card = basics[Math.floor(Math.random() * 5)];
             // kick user
             msg.channel.createInvite().then((invite) => {
-            console.log(invite);
              msg.member.send(
                     `You topdecked a **${card}** and have been kicked! 💥 \nRejoin the server with ${invite}`
              ).then(() => {
@@ -56,21 +50,19 @@ class Topdeck {
             }).catch((err) => {
                 log.error(err);
             });
-            
-          
-         
         } else {
-            rp(randomCardUrl).then((res) => {
-                console.log(JSON.stringify(res));
+            rp(randomCardUrl).then((card) => {
+                 card = JSON.parse(card);
+                return msg.channel.send(
+                `You topdecked a **${card.name}** and win the game! ✨`,
+                {
+                    files: [card.image_uris.normal],
+                }
+				);
             })
             .catch((err) => {
                 log.error(err);
             });
-              return msg.channel.send(
-                `💥 You topdecked a **${card}** and have been kicked!`,
-                {
-                    files: [this.tableFlipGif],
-                });
         }
         
 		// const embed = new Discord.MessageEmbed({
