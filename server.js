@@ -152,10 +152,10 @@ bot.on('guildDelete', (guild) => {
     utils.updatePresence(bot);
 });
 
-// TODO: add supporter role to new members
+// TODO: add supporter role to new members & remove WIP
 bot.on("guildMemberAdd", (member, msg) => {
 	member.send(
-		`🎉 Welcome to the **TopDecked Community Discord** ${member.displayName}! \n\nClick the link below to sync your TopDecked and Discord account and unlock perks for both!`
+		`🎉 Welcome to the **TopDecked Community Discord** ${member.displayName}! \n\nClick the link below to sync your TopDecked and Discord account and unlock perks for both! (WIP)`
 	);
 });
 
